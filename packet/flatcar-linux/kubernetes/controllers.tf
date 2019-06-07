@@ -5,7 +5,7 @@ resource "aws_route53_record" "etcds" {
   # DNS Zone where record should be created
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("%s-etcd%d.%s.", var.cluster_name, count.index, var.dns_zone)}"
+  name = "${format("etcd-%d.%s.%s.", count.index, var.cluster_name, var.dns_zone)}"
   type = "A"
   ttl  = 300
 
@@ -17,7 +17,7 @@ resource "aws_route53_record" "etcds" {
 resource "aws_route53_record" "apiservers" {
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("%s.%s.", var.cluster_name, var.dns_zone)}"
+  name = "${format("api.%s.%s.", var.cluster_name, var.dns_zone)}"
   type = "A"
   ttl  = "300"
 
@@ -28,7 +28,7 @@ resource "aws_route53_record" "apiservers" {
 resource "aws_route53_record" "apiservers_private" {
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("%s-private.%s.", var.cluster_name, var.dns_zone)}"
+  name = "${format("internal.%s.%s.", var.cluster_name, var.dns_zone)}"
   type = "A"
   ttl  = "300"
 
