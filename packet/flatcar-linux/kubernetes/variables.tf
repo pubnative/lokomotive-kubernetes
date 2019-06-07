@@ -42,16 +42,19 @@ variable "controller_count" {
 variable "worker_count" {
   type        = "string"
   description = "Number of workers"
+  default     = 0
 }
 
 variable "worker_nodes_hostnames" {
   type        = "list"
   description = "List of hostname of packet_device resources"
+  default     = []
 }
 
 variable "worker_nodes_public_ipv4s" {
   type        = "list"
   description = "List of public IPv4 of packet_device resources"
+  default     = []
 }
 
 variable "controller_type" {
