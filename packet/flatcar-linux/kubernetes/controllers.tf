@@ -44,9 +44,9 @@ data "template_file" "controller-configs" {
   vars {
     # Cannot use cyclic dependencies on controllers or their DNS records
     etcd_name   = "etcd${count.index}"
-    etcd_domain = "${var.cluster_name}-etcd${count.index}.${var.dns_zone}"
+    etcd_domain = "etcd-${count.index}.${var.cluster_name}.${var.dns_zone}"
 
-    # etcd0=https://cluster-etcd0.example.com,etcd1=https://cluster-etcd1.example.com,...
+    # etcd0=https://etcd-0.cluster.example.com,etcd1=https://etcd-1.cluster.example.com,...
     etcd_initial_cluster = "${join(",", data.template_file.etcds.*.rendered)}"
 
     kubeconfig            = "${indent(10, module.bootkube.kubeconfig-kubelet)}"
@@ -56,9 +56,10 @@ data "template_file" "controller-configs" {
   }
 }
 
+# etcd0=https://etcd-0.cluster.example.com,etcd1=https://etcd-1.cluster.example.com,...
 data "template_file" "etcds" {
   count    = "${var.controller_count}"
-  template = "etcd$${index}=https://$${cluster_name}-etcd$${index}.$${dns_zone}:2380"
+  template = "etcd$${index}=https://etcd-$${index}}.$${cluster_name}.$${dns_zone}:2380"
 
   vars {
     index        = "${count.index}"

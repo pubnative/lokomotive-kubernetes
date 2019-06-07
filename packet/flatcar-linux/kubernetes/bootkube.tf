@@ -4,8 +4,8 @@ module "bootkube" {
   cluster_name = "${var.cluster_name}"
 
   # Cannot use cyclic dependencies on controllers or their DNS records
-  api_servers          = ["${format("%s-private.%s", var.cluster_name, var.dns_zone)}"]
-  api_servers_external = ["${format("%s.%s", var.cluster_name, var.dns_zone)}"]
+  api_servers          = ["${local.internal_domain}"]
+  api_servers_external = ["${local.domain}"]
   etcd_servers         = "${aws_route53_record.etcds.*.name}"
   asset_dir            = "${var.asset_dir}"
   networking           = "${var.networking}"

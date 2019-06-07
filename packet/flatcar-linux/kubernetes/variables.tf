@@ -15,6 +15,12 @@ variable "dns_zone_id" {
   description = "AWS Route53 DNS Zone ID (e.g. Z3PAABBCFAKEC0)"
 }
 
+variable "dns_zone_ttl" {
+  type        = "string"
+  description = "AWS Route53 DNS Zone ttl (e.g 300)"
+  default     = 300
+}
+
 variable "project_id" {
   description = "Packet project ID (e.g. 405efe9c-cce9-4c71-87c1-949c290b27dc)"
 }
