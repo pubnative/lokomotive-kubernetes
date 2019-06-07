@@ -21,14 +21,14 @@ spec:
   - action: Allow
     protocol: UDP
     source:
-      nets: ${node_public_ips}
+      nets: ${node_ips}
     destination:
       ports: [68]
   # BGP and etcd access
   - action: Allow
     protocol: TCP
     source:
-      nets: ${node_public_ips}
+      nets: ${node_ips}
     destination:
       ports:
       # BGP access (Calico networking)
@@ -115,7 +115,7 @@ spec:
     protocol: TCP
     destination:
       ports: [80, 443]
-  selector: nodetype == 'worker'
+  selector: nodetype == 'ingress'
 ---
 # Disable default failsafe inbound rules
 apiVersion: crd.projectcalico.org/v1

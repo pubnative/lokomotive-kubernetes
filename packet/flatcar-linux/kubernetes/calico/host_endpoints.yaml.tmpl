@@ -5,7 +5,7 @@ metadata:
   name: ${node_name}-bond0
   labels:
     host-endpoint: ingress
-    nodetype: worker
+    nodetype: ${node_type}
 spec:
   interfaceName: bond0
   node: "${node_name}"
