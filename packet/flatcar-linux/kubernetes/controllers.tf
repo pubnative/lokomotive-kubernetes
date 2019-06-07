@@ -1,11 +1,16 @@
 # Discrete DNS records for each controller's private IPv4 for etcd usage
+locals {
+  domain = "${format("api.%s", var.cluster_name)}"
+  internal_domain = "${format("internal.%s", var.cluster_name)}"
+}
+
 resource "aws_route53_record" "etcds" {
   count = "${var.controller_count}"
 
   # DNS Zone where record should be created
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("etcd-%d.%s.%s.", count.index, var.cluster_name, var.dns_zone)}"
+  name = "${format("etcd-%d.%s", count.index, var.cluster_name)}"
   type = "A"
   ttl  = 300
 
@@ -17,7 +22,7 @@ resource "aws_route53_record" "etcds" {
 resource "aws_route53_record" "apiservers" {
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("api.%s.%s.", var.cluster_name, var.dns_zone)}"
+  name = "${local.domain}"
   type = "A"
   ttl  = "300"
 
@@ -28,7 +33,7 @@ resource "aws_route53_record" "apiservers" {
 resource "aws_route53_record" "apiservers_private" {
   zone_id = "${var.dns_zone_id}"
 
-  name = "${format("internal.%s.%s.", var.cluster_name, var.dns_zone)}"
+  name = "${local.internal_domain}"
   type = "A"
   ttl  = "300"
 
