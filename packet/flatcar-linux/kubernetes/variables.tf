@@ -166,3 +166,8 @@ variable "reservation_ids" {
   type        = "list"
   default     = []
 }
+
+variable "kube_version" {
+  description = "Specify Kuberentes version. e.g v1.14.3"
+  default     = "v1.14.3"
+}

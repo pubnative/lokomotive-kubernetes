@@ -49,6 +49,8 @@ data "template_file" "controller-configs" {
     # etcd0=https://etcd-0.cluster.example.com,etcd1=https://etcd-1.cluster.example.com,...
     etcd_initial_cluster = "${join(",", data.template_file.etcds.*.rendered)}"
 
+    kube_version          = "${var.kube_version}"
+
     kubeconfig            = "${indent(10, module.bootkube.kubeconfig-kubelet)}"
     ssh_keys              = "${jsonencode("${var.ssh_keys}")}"
     k8s_dns_service_ip    = "${cidrhost(var.service_cidr, 10)}"
