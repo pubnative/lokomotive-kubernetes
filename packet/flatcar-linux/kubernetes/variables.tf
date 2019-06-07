@@ -154,3 +154,9 @@ variable "enable_aggregation" {
   type        = "string"
   default     = "false"
 }
+
+variable "reservation_ids" {
+  description = "Specify Packet hardware_reservation_id for instances."
+  type        = "list"
+  default     = []
+}

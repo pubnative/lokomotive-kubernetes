@@ -37,16 +37,18 @@ resource "aws_route53_record" "apiservers_private" {
 }
 
 resource "packet_device" "controllers" {
-  count            = "${var.controller_count}"
-  hostname         = "${var.cluster_name}-controller-${count.index}"
-  plan             = "${var.controller_type}"
-  facilities       = ["${var.facility}"]
-  operating_system = "custom_ipxe"
-  billing_cycle    = "hourly"
-  project_id       = "${var.project_id}"
-  ipxe_script_url  = "${var.ipxe_script_url}"
-  always_pxe       = "false"
-  user_data        = "${element(data.ct_config.controller-install-ignitions.*.rendered, count.index)}"
+  count                   = "${var.controller_count}"
+  hostname                = "${var.cluster_name}-controller-${count.index}"
+  plan                    = "${var.controller_type}"
+  facilities              = ["${var.facility}"]
+  operating_system        = "custom_ipxe"
+  billing_cycle           = "hourly"
+  project_id              = "${var.project_id}"
+  ipxe_script_url         = "${var.ipxe_script_url}"
+  always_pxe              = "false"
+  user_data               = "${element(data.ct_config.controller-install-ignitions.*.rendered, count.index)}"
+  ip_address_types        = ["private_ipv4", "public_ipv4"]
+  hardware_reservation_id = "${length(var.reservation_ids) > 0 ? element(concat(var.reservation_ids, list("")), count.index) : ""}"
 }
 
 data "ct_config" "controller-install-ignitions" {
