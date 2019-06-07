@@ -9,6 +9,7 @@ resource "packet_device" "nodes" {
   ipxe_script_url  = "${var.ipxe_script_url}"
   always_pxe       = "false"
   user_data        = "${data.ct_config.install-ignitions.rendered}"
+  ip_address_types = ["private_ipv4", "public_ipv4"]
 
   # If not present in the map, it uses ${var.reservation_ids_default}
   hardware_reservation_id = "${lookup(var.reservation_ids, format("worker-%v", count.index), var.reservation_ids_default)}"
@@ -33,7 +34,7 @@ data "template_file" "install" {
 }
 
 resource "packet_bgp_session" "bgp" {
-  count          = "${var.count}"
+  count          = "${var.enable_bgp ? var.count : 0}"
   device_id      = "${element(packet_device.nodes.*.id, count.index)}"
   address_family = "ipv4"
 }
