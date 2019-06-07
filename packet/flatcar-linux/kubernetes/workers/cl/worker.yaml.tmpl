@@ -89,6 +89,7 @@ systemd:
           --lock-file=/var/run/lock/kubelet.lock \
           --network-plugin=cni \
           --node-labels=node-role.kubernetes.io/node \
+          --node-labels=kubernetes.io/public-ipv4=$${COREOS_PACKET_IPV4_PUBLIC_0} \
           --node-labels=${worker_labels} \
           --pod-manifest-path=/etc/kubernetes/manifests \
           --read-only-port=0 \
