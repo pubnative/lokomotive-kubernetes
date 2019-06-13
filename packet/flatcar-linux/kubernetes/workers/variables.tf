@@ -124,5 +124,5 @@ variable "kube_version" {
 
 variable "enable_bgp" {
   description = "Enable BGP for device"
-  default = false
+  default     = false
 }

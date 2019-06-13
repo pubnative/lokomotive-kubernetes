@@ -25,8 +25,8 @@ module "bootkube" {
   enable_aggregation    = "${var.enable_aggregation}"
 
   container_images = {
-    calico           = "quay.io/calico/node:v3.7.0"
-    calico_cni       = "quay.io/calico/cni:v3.7.0"
+    calico           = "quay.io/calico/node:v3.7.3"
+    calico_cni       = "quay.io/calico/cni:v3.7.3"
     flannel          = "quay.io/coreos/flannel:v0.11.0-amd64"
     flannel_cni      = "quay.io/coreos/flannel-cni:v0.3.0"
     kube_router      = "cloudnativelabs/kube-router:v0.3.0"

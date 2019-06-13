@@ -1,5 +1,5 @@
 locals {
-  pool_name = "${replace(var.pool_name, "_", "-")}"
+  pool_name       = "${replace(var.pool_name, "_", "-")}"
   hostname_prefix = "${join("-", compact(list(var.cluster_name, local.pool_name, "worker")))}"
 }
 
