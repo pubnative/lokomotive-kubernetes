@@ -3,6 +3,7 @@
 variable "cluster_name" {
   type        = "string"
   description = "Unique cluster name (prepended to dns_zone)"
+  default     = ""
 }
 
 variable "dns_zone" {

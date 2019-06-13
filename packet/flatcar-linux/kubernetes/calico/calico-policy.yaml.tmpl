@@ -40,11 +40,14 @@ spec:
       - 6666
       - 6667
 ---
+
 # Allow traffic from IP addresses that are known to be cluster-internal including pods and services
 apiVersion: crd.projectcalico.org/v1
 kind: GlobalNetworkPolicy
+
 metadata:
   name: allow-cluster-internal-ingress
+
 spec:
   order: 10
   preDNAT: true
@@ -53,8 +56,9 @@ spec:
     - action: Allow
       source:
         nets: ${cluster_internal_cidrs}
-  selector: has(host-endpoint)
+
 ---
+
 # Deny traffic from any other sources
 apiVersion: crd.projectcalico.org/v1
 kind: GlobalNetworkPolicy

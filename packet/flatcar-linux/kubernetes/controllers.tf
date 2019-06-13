@@ -1,6 +1,10 @@
+locals {
+  hostname_prefix = "${join("-", compact(list(var.cluster_name, "controller")))}"
+}
+
 resource "packet_device" "controllers" {
   count                   = "${var.controller_count}"
-  hostname                = "${var.cluster_name}-controller-${count.index}"
+  hostname                = "${local.hostname_prefix}-${count.index}"
   plan                    = "${var.controller_type}"
   facilities              = ["${var.facility}"]
   operating_system        = "custom_ipxe"

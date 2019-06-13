@@ -1,10 +1,11 @@
 locals {
   pool_name = "${replace(var.pool_name, "_", "-")}"
+  hostname_prefix = "${join("-", compact(list(var.cluster_name, local.pool_name, "worker")))}"
 }
 
 resource "packet_device" "nodes" {
   count            = "${var.count}"
-  hostname         = "${var.cluster_name}-${local.pool_name}-worker-${count.index}"
+  hostname         = "${local.hostname_prefix}-${count.index}"
   plan             = "${var.type}"
   facilities       = ["${var.facility}"]
   operating_system = "custom_ipxe"
