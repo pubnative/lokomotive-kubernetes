@@ -15,7 +15,7 @@ module "workers" {
   priority = "${var.worker_priority}"
 
   custom_image_resource_group_name = "${var.custom_image_resource_group_name}"
-  custom_image_name = "${var.custom_image_name}"
+  custom_image_name                = "${var.custom_image_name}"
 
   # configuration
   kubeconfig            = "${module.bootkube.kubeconfig-kubelet}"
