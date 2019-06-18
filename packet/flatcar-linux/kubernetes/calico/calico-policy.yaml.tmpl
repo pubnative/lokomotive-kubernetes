@@ -60,7 +60,7 @@ spec:
     - action: Allow
       source:
         nets: ${cluster_internal_cidrs}
-
+  selector: has(host-endpoint)
 ---
 
 # Deny traffic from any other sources
@@ -75,7 +75,7 @@ spec:
   applyOnForward: true
   ingress:
     - action: Deny
-
+  selector: has(host-endpoint)
 ---
 
 # Allow egress traffic through nodes' external interface
@@ -89,7 +89,7 @@ spec:
   order: 10
   egress:
     - action: Allow
-
+  selector: has(host-endpoint)
 ---
 
 # controller hosts endpoint
@@ -114,10 +114,10 @@ spec:
   applyOnForward: true
   order: 10
   ingress:
-    - action: Allow
-      protocol: TCP
-      destination:
-        ports: [6443]
+  - action: Allow
+    protocol: TCP
+    destination:
+      ports: [6443]
   selector: nodetype == 'controller'
 
 ---
@@ -132,10 +132,10 @@ spec:
   applyOnForward: true
   order: 0
   ingress:
-    - action: Allow
-      protocol: TCP
-      destination:
-        ports: [80, 443]
+  - action: Allow
+    protocol: TCP
+    destination:
+      ports: [80, 443]
   selector: nodetype == 'ingress'
 
 ---
