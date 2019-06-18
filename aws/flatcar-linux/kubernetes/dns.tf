@@ -4,7 +4,6 @@ resource "aws_route53_record" "ingress-wildcard" {
   name    = "${format("*.%s.%s.", var.cluster_name, var.dns_zone)}"
   type    = "CNAME"
   ttl     = 60
-
   records = [
     "${format("%s.%s.", var.cluster_name, var.dns_zone)}",
   ]
