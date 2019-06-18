@@ -6,7 +6,7 @@ resource "null_resource" "copy-controller-secrets" {
     type    = "ssh"
     host    = "${element(packet_device.controllers.*.access_public_ipv4, count.index)}"
     user    = "core"
-    timeout = "60m"
+    timeout = "120m"
   }
 
   provisioner "file" {
