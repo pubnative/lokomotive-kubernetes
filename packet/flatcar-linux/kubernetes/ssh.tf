@@ -92,6 +92,7 @@ resource "null_resource" "bootkube-start" {
     inline = [
       "sudo mv $HOME/assets /opt/bootkube",
       "sudo systemctl start bootkube",
+      "sudo shutdown -r +1",
     ]
   }
 }
