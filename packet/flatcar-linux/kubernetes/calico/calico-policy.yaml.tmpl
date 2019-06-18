@@ -14,35 +14,35 @@ spec:
   selector: has(host-endpoint)
   order: 0
   ingress:
-    # SSH access
-    - action: Allow
-      protocol: TCP
-      source:
-        nets: ${management_cidrs}
-      destination:
-        ports: [22]
-    # DHCP access
-    - action: Allow
-      protocol: UDP
-      source:
-        nets: ${node_ips}
-      destination:
-        ports: [68]
-    # BGP and etcd access
-    - action: Allow
-      protocol: TCP
-      source:
-        nets: ${node_ips}
-      destination:
-        ports:
-        # BGP access (Calico networking)
-        - 179
-        # etcd access
-        - 2379
-        - 2380
-        # etcd self-hosted service access
-        - 6666
-        - 6667
+  # SSH access
+  - action: Allow
+    protocol: TCP
+    source:
+      nets: ${management_cidrs}
+    destination:
+      ports: [22]
+  # DHCP access
+  - action: Allow
+    protocol: UDP
+    source:
+      nets: ${node_ips}
+    destination:
+      ports: [68]
+  # BGP and etcd access
+  - action: Allow
+    protocol: TCP
+    source:
+      nets: ${node_ips}
+    destination:
+      ports:
+      # BGP access (Calico networking)
+      - 179
+      # etcd access
+      - 2379
+      - 2380
+      # etcd self-hosted service access
+      - 6666
+      - 6667
 ---
 
 # Allow traffic from IP addresses that are known to be cluster-internal including pods and services
