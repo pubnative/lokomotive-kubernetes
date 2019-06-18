@@ -63,6 +63,8 @@ resource "null_resource" "copy-controller-secrets" {
 # Secure copy bootkube assets to ONE controller and start bootkube to perform
 # one-time self-hosted cluster bootstrapping.
 resource "null_resource" "bootkube-start" {
+  count = "${length(packet_device.controllers.*.access_public_ipv4) > 0 ? 1 : 0}"
+
   depends_on = [
     "module.bootkube",
     "aws_route53_record.apiservers_private",

@@ -23,6 +23,7 @@ resource "aws_route53_record" "etcds" {
 
 # DNS record for the API servers
 resource "aws_route53_record" "apiservers" {
+  count   = "${length(packet_device.controllers.*.access_public_ipv4) > 0 ? 1 : 0}"
   zone_id = "${var.dns_zone_id}"
 
   name = "${local.domain}"
@@ -34,6 +35,7 @@ resource "aws_route53_record" "apiservers" {
 }
 
 resource "aws_route53_record" "apiservers_private" {
+  count   = "${length(packet_device.controllers.*.access_private_ipv4) > 0 ? 1 : 0}"
   zone_id = "${var.dns_zone_id}"
 
   name = "${local.internal_domain}"
