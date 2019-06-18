@@ -43,6 +43,7 @@ spec:
       # etcd self-hosted service access
       - 6666
       - 6667
+
 ---
 
 # Allow traffic from IP addresses that are known to be cluster-internal including pods and services
@@ -61,6 +62,7 @@ spec:
       source:
         nets: ${cluster_internal_cidrs}
   selector: has(host-endpoint)
+
 ---
 
 # Deny traffic from any other sources
@@ -76,6 +78,7 @@ spec:
   ingress:
     - action: Deny
   selector: has(host-endpoint)
+
 ---
 
 # Allow egress traffic through nodes' external interface
@@ -90,6 +93,7 @@ spec:
   egress:
     - action: Allow
   selector: has(host-endpoint)
+
 ---
 
 # controller hosts endpoint
@@ -118,7 +122,7 @@ spec:
     protocol: TCP
     destination:
       ports: [6443]
-  selector: nodetype == 'controller'
+  selector: host-endpoint == 'controller'
 
 ---
 
@@ -136,7 +140,7 @@ spec:
     protocol: TCP
     destination:
       ports: [80, 443]
-  selector: nodetype == 'ingress'
+  selector: host-endpoint == 'ingress'
 
 ---
 

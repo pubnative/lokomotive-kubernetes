@@ -1,11 +1,13 @@
 ---
+
 apiVersion: crd.projectcalico.org/v1
 kind: HostEndpoint
+
 metadata:
   name: ${node_name}-bond0
   labels:
-    host-endpoint: ingress
-    nodetype: ${node_type}
+    host-endpoint: ${node_type}
+
 spec:
   interfaceName: bond0
   node: "${node_name}"
