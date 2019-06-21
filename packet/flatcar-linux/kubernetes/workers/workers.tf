@@ -40,7 +40,7 @@ data "template_file" "install" {
 
 resource "packet_bgp_session" "bgp" {
   count          = "${var.enable_bgp ? var.count : 0}"
-  device_id      = "${element(packet_device.nodes.*.id, count.index)}"
+  device_id      = "${packet_device.nodes.*.id[count.index]}"
   address_family = "ipv4"
 }
 
